@@ -5,7 +5,7 @@ A simple Spring Boot 3 REST API to upload, download, and list files using a [Rus
 ## Tech Stack
 
 - Java 21
-- Spring Boot 3.4.3
+- Spring Boot 3.5.12
 - Spring Cloud AWS 4.0.0 (`S3Template`)
 - RustFS (S3-compatible object storage)
 - Springdoc OpenAPI (Swagger UI)
