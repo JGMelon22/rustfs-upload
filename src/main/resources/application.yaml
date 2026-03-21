@@ -1,0 +1,23 @@
+spring:
+  application:
+    name: rustfs-upload
+  threads:
+    virtual:
+      enabled: true
+  cloud:
+    aws:
+      credentials:
+        access-key: rustfsadmin
+        secret-key: rustfsadmin
+      region:
+        static: us-east-1          # RustFS accepts any region string
+      s3:
+        endpoint: http://localhost:9000   # Your RustFS server
+        path-style-access-enabled: true   # Same as forcePathStyle — required for non-AWS servers
+  servlet:
+    multipart:
+      max-file-size: 100MB
+      max-request-size: 100MB
+
+rustfs:
+  bucket: my-bucket
