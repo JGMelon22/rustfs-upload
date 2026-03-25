@@ -19,5 +19,9 @@ spring:
       max-file-size: 100MB
       max-request-size: 100MB
 
+scalar:
+  enabled: true
+  url: /v3/api-docs
+
 rustfs:
   bucket: my-bucket
