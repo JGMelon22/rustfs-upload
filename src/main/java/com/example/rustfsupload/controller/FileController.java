@@ -51,7 +51,7 @@ public class FileController {
      * Returns a list of all object keys in the bucket.
      */
     @GetMapping
-    public ResponseEntity<List<String>> listFiles(){
+    public ResponseEntity<List<String>> listFiles() {
         return ResponseEntity.ok(fileService.listFiles());
     }
 
@@ -59,7 +59,7 @@ public class FileController {
      * GET /api/files/{key}
      * Returns the raw file bytes with its original content type,
      * triggering a download in the browser/client.
-     *
+     * <p>
      * The key must be URL-encoded if it contains special characters.
      */
     @GetMapping("/{key}")
@@ -76,5 +76,18 @@ public class FileController {
                 .contentType(MediaType.parseMediaType(contentType))
                 .contentLength(resource.contentLength())
                 .body(resource);
+    }
+
+    /**
+     * DELETE /api/files/{key}
+     * Removes the object with the given key from the bucket.
+     * <p>
+     * Returns 204 No Content on success.
+     * The key must be URL-encoded if it contains special characters.
+     */
+    @DeleteMapping("/{key}")
+    public ResponseEntity<Void> remove(@PathVariable String key) throws IOException {
+        fileService.remove(key);
+        return ResponseEntity.noContent().build();
     }
 }

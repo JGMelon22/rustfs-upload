@@ -64,6 +64,7 @@ mvn spring-boot:run
 | POST   | `/api/files/upload`     | Upload a file            |
 | GET    | `/api/files`            | List all files in bucket |
 | GET    | `/api/files/{key}`      | Download a file by key   |
+| DELETE | `/api/files/{key}`      | Deletes a file by key    |
 
 ## Scalar UI
 
@@ -88,4 +89,7 @@ curl http://localhost:8080/api/files
 
 # Download a file (use the key returned from upload)
 curl -OJ http://localhost:8080/api/files/uuid_photo.jpg
+
+# Delete a file (use the key returned from upload)
+curl -X DELETE http://localhost:8080/api/files/uuid_photo.jpg
 ```

@@ -46,6 +46,16 @@ public class S3FileService {
     }
 
     /**
+     * Removes the object with the given key from the bucket.
+     * No-op if the object does not exist.
+     */
+    public void remove(String key) {
+        if (s3Template.objectExists(bucket, key)) {
+            s3Template.deleteObject(bucket, key);
+        }
+    }
+
+    /**
      * List all object keys in the bucket.
      */
     public List<String> listFiles() {
