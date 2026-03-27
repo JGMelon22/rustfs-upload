@@ -5,10 +5,9 @@ import io.awspring.cloud.s3.S3Resource;
 import io.awspring.cloud.s3.S3Template;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
-import org.springframework.web.multipart.MultipartFile;
-import software.amazon.awssdk.services.s3.model.S3Object;
 
 import java.io.IOException;
+import java.io.InputStream;
 import java.util.List;
 import java.util.UUID;
 
@@ -27,11 +26,15 @@ public class S3FileService {
     /**
      * Uploads a file and returns the generated object key.
      */
-    public String upload(MultipartFile file) throws IOException {
-        String key = UUID.randomUUID() + "_" + file.getOriginalFilename();
+    public String upload(InputStream stream, String fileName, String contentType) {
+        String key = UUID.randomUUID() + "_" + fileName;
+
+        ObjectMetadata metadata = ObjectMetadata.builder()
+                .contentType(contentType)
+                .build();
 
         // S3Template.upload() handles PutObjectRequest details internally
-        s3Template.upload(bucket, key, file.getInputStream());
+        s3Template.upload(bucket, key, stream, metadata);
 
         return key;
     }

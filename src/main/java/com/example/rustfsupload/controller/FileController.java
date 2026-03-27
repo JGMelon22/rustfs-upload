@@ -37,7 +37,9 @@ public class FileController {
                     .body(Map.of("error", "File must not be empty."));
         }
 
-        String key = fileService.upload(file);
+        String key = fileService.upload(file.getInputStream(),
+                file.getOriginalFilename(),
+                file.getContentType());
 
         return ResponseEntity.ok(Map.of(
                 "message", "File uploaded successfully.",
@@ -63,7 +65,7 @@ public class FileController {
      * The key must be URL-encoded if it contains special characters.
      */
     @GetMapping("/{key}")
-    public ResponseEntity<Resource> download(@PathVariable String key) throws IOException {
+    public ResponseEntity<Resource> download(@PathVariable String key) {
         S3Resource resource = fileService.download(key);
 
         // S3Resource exposes the object's metadata, including content type
